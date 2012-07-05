@@ -1,13 +1,12 @@
 import argparse
-import re
 from suds.client import Client
 
 DOMAIN = "VISTAPRINTUS"
 URL = "https://scrt.vistaprint.net/webservices/sswebservice.asmx"
 
-class Run:
-	def __init__(self):
-		self.url = URL
+class SecretServer:
+	def __init__(self, url):
+		self.url = url
 		self.client = Client("%s?WSDL" % self.url)
 		
 	def authenticate(self, user, passwd, domain, org):
@@ -48,7 +47,7 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	
 	# Run
-	r = Run()
+	r = SecretServer(URL)
 	token = r.authenticate(args.user, args.passwd, args.domain, args.org)
 	secret = r.get_secret(token, args.ssid)
 	r.print_secret(secret)
