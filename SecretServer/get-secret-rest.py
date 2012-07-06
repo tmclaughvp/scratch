@@ -23,9 +23,9 @@ class SecretServer:
             org = ''
 
         url = SecretServer.AUTH_URL % (self.url, user, passwd, domain, org)
-        resp = urllib.urlopen(url)
-        dom = xml.dom.minidom.parseString(resp.read())
-        resp.close()
+        connection = urllib.urlopen(url)
+        dom = xml.dom.minidom.parseString(connection.read())
+        connection.close()
         token = dom.getElementsByTagName('Token')[0].firstChild.nodeValue
         return token
 
@@ -34,9 +34,9 @@ class SecretServer:
         Takes a token and secret server ID and returns a response object.
         '''
         url = SecretServer.GET_SECRET_URL % (self.url, token, ssid)
-        resp = urllib.urlopen(url)
-        dom = xml.dom.minidom.parseString(resp.read())
-        resp.close()
+        connection = urllib.urlopen(url)
+        dom = xml.dom.minidom.parseString(connection.read())
+        connection.close()
         return dom
     
     def print_secret(self, secret):
