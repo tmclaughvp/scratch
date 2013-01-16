@@ -13,10 +13,9 @@ $vc_list = "..."
 
 foreach ($vc in $vc_list) {
 	Write-Host "Connecting to ${vc}"
-	Connect-VIServer -server $vc
+	$vc = Connect-VIServer -server $vc
 	
 	$cluster_list = Get-Cluster
-	$cluster_list
 	
 	foreach ($cluster in $cluster_list | Sort-Object) {
 		Write-Host "Opperating in ${cluster}"
