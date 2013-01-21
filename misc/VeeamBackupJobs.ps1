@@ -102,21 +102,13 @@ foreach ($_vmToAdd in $VMsToAdd) {
 	}
 }
 
-Write-Host $VMsFailedToAdd
-Write-Host "----------"
-Write-Host $VMsAdded
-Write-Host "----------"
-
-# Create list of VMs added and failed and create an email msg.
+# Create email message.
 $MailMsg = ""
-
 $VmsAddedList = @()
 foreach ($_vmAdded in $VMsAdded) {
 	write-Host $_vmAdded
 	$VmsAddedList += "$($_vmAdded.Name)`r`n"
 }
-
-write-Host $VmsAddedList
 
 if ($VmsAddedList) {
 	$VMsAddedMsg = @"
