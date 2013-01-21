@@ -62,15 +62,6 @@ function GetExclusions
 	}
 }
 
-function GetVBRJob
-{
-	param ()
-	process {
-		$jobName = $JobPrefix + ' - 1'
-		return get-VBRJob -Name $jobName
-	}
-}
-
 ### Main ###
 $vc = Connect-VIServer -Server $VCenter
 $dc = Get-Datacenter -Name $Datacenter
@@ -99,7 +90,7 @@ foreach ($_vm in $vms) {
 	}
 }
 
-$jobObj = getVBRJob
+$jobObj = $BackupJobs[-1]
 foreach ($_vmToAdd in $VMsToAdd) {
 	$jobObjs = AddVMToJob -JobObj $jobObj -VmObj $_vmToAdd
 }
