@@ -16,8 +16,8 @@ param (
 )
 
 ### Includes ###
-Add-PSSnapin "VMware.VimAutomation.Core"
-Add-PSSnapin "VeeamPSSnapIn"
+Add-PSSnapin "VMware.VimAutomation.Core" -ErrorAction SilentlyContinue
+Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
 
 ### Variables ###
 $COMMENT = '#'
