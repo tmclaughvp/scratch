@@ -10,7 +10,7 @@ param (
 	$Datacenter = 'lexington',
 	$VpEnv = 'dev',
 	$HostGlob = 'dev*101',
-	$JobPrefix = 'DEV Monthly - ',
+	$JobPrefix = 'DEV Monthly',
 	[int]$JobMaxVMs = 100
 )
 
@@ -47,7 +47,7 @@ function GetVBRJob
 {
 	param ()
 	process {
-		$jobName = $JobPrefix + '1'
+		$jobName = $JobPrefix + ' - 1'
 		return get-VBRJob -Name $jobName
 	}
 }
