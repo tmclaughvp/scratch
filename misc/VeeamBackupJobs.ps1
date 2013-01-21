@@ -54,9 +54,9 @@ function GetVBRJob
 
 ### Main ###
 $vc = Connect-VIServer -Server $VCenter
-#$dc = Get-Datacenter -Name $Datacenter
+$dc = Get-Datacenter -Name $Datacenter
 # Debug to make this run quicker.
-$dc = Get-VMHost -Name 'vpesx101.vistaprint.net'
+#$dc = Get-VMHost -Name 'vpesx101.vistaprint.net'
 
 # Get list of all VM names currently being backed up.
 $BackedUpVMs = @()
