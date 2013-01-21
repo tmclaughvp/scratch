@@ -11,12 +11,16 @@ param (
 	$VpEnv = 'dev',
 	$HostGlob = 'dev*101',
 	$JobPrefix = 'DEV Monthly',
-	[int]$JobMaxVMs = 100
+	[int]$JobMaxVMs = 100,
+	$ExclusionFile = 'C:\Program Files\Veeam\exclusions.txt'
 )
 
+### Includes ###
 Add-PSSnapin "VMware.VimAutomation.Core"
 Add-PSSnapin "VeeamPSSnapIn"
 
+### Variables ###
+$COMMENT = '#'
 $mailRelay = 'relay.vistaprint.net'
 $mailFrom = 'noreply@vistaprint.net'
 $mailTo = 'tmclaughlin@vistaprint.net'
@@ -29,7 +33,6 @@ $DCBackUpRepo = @{'lexington' = 'dd101';
 $DCProxyServer = @{'lexington' = 'This server';
 				   'bermuda' = 'veeamproxy01.vistaprint.net'}
 
-
 ### Functions ###
 
 function AddVMToJob
@@ -40,6 +43,22 @@ function AddVMToJob
 		$server = Get-VBRServer -Name $VmObj.VMHost.Name
 		$JobObjs = Add-VBRJobObject -Job $jobObj -Server $server -Objects $VmObj.Name
 		return $JobObjs
+	}
+}
+
+function GetExclusions
+{
+	param ($fileName)
+	process {
+		$fileContent = Get-Content $fileName
+		$exclusionsList = @()
+		foreach ($_l in $fileContent) {
+			if (! $_l.startsWith($COMMENT)) {
+				$exclusionsList += $_l
+			}
+		}
+		
+		return $exclusionsList
 	}
 }
 
@@ -70,9 +89,10 @@ foreach ($_j in $BackupJobs) {
 }
 
 $vms = Get-VM -Name $HostGlob -Location $dc
+$exclusionsList = GetExclusions $ExclusionFile
 $VMsToAdd = @()
 foreach ($_vm in $vms) {
-	if ($BackedUpVMs -notcontains $_vm.Name) {
+	if ($BackedUpVMs -notcontains $_vm.Name -and $ExclusionsList -notcontains $_vm.Name) {
 		$VMsToAdd += $_vm
 	}
 }
