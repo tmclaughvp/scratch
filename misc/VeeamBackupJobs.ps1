@@ -78,9 +78,11 @@ $dc = Get-Datacenter -Name $Datacenter
 #$dc = Get-VMHost -Name 'vpesx101.vistaprint.net'
 
 # Get list of all VM names currently being backed up.
-$BackedUpVMs = @()
 # Always return an array.  You're a stupid language PowerShell...
-$BackupJobs = @(Get-VBRJob -name $HostGlob)
+$JobGlob = $JobPrefix + ' - [0-9]*'
+$BackupJobs = @(Get-VBRJob -name $JobGlob)
+$BackupJobs = $BackupJobs | Sort-Object -Property Name
+$BackedUpVMs = @()
 foreach ($_j in $BackupJobs) {
 	$objs = $_j.GetObjectsInJob()
 	foreach ($_o in $objs) {
