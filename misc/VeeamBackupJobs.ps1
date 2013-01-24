@@ -12,7 +12,7 @@ param (
 	$HostGlob = 'dev*101',
 	$JobPrefix = 'DEV Monthly',
 	[int]$JobMaxVMs = 100,
-	$ExclusionFile = 'C:\Program Files\Veeam\exclusions.txt'
+	$ExclusionFile = 'C:\Program Files\Veeam\backup-exclusions.txt'
 )
 
 ### Includes ###
