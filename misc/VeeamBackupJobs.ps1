@@ -38,10 +38,10 @@ $DCProxyServer = @{'lexington' = 'This server';
 function AddVMToJob
 {
 	#param ([CBackupJob]$JobObj, [VirtualMachineImpl]$VmObj)
-	param ($JobObj, $VmObj)
+	param ($Job, $Vm)
 	process {
-		$server = Get-VBRServer -Name $VmObj.VMHost.Name
-		$JobObjs = Add-VBRJobObject -Job $jobObj -Server $server -Objects $VmObj.Name
+		$server = Get-VBRServer -Name $Vm.VMHost.Name
+		$JobObjs = Add-VBRJobObject -Job $job -Server $server -Objects $Vm.Name
 		return $JobObjs
 	}
 }
@@ -100,9 +100,13 @@ foreach ($_vm in $vms) {
 	}
 }
 
-$jobObj = $BackupJobs[-1]
+$job = $BackupJobs[-1]
 foreach ($_vmToAdd in $VMsToAdd) {
-	$jobObjs = AddVMToJob -JobObj $jobObj -VmObj $_vmToAdd
+	# If $job.length is greater than max, create a new job!
+	#if ($job.length -ge $JobMaxVMs) {	
+	#}
+	$jobObjs = AddVMToJob -Job $job -Vm $_vmToAdd
+	#$jobObj = get-VBRJobObjects -job $ $job -name $_vmToAdd
 }
 
 # Add-VBRJobObject returns an array of the objects included in the specified
