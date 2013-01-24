@@ -14,14 +14,14 @@ function Get-Exclusions
 	param ($fileName)
 	process {
 		$fileContent = Get-Content $fileName -ErrorAction SilentlyContinue
-			if ($fileContent) {
+		if ($fileContent) {
 			$exclusionsList = @()
 			foreach ($_l in $fileContent) {
 				if (! $_l.startsWith($COMMENT)) {
 					$exclusionsList += $_l
 				}
 			}
-			return $exclusionsList
+		return $exclusionsList
 		}
 	}
 }
