@@ -29,7 +29,7 @@ function Get-Exclusions
 $exclusionsList = Get-Exclusions $ExclusionFile
 # Get list of all VM names currently being backed up.
 # Always return an array.  You're a stupid language PowerShell...
-$BackupJobs = @(Get-VBRJob | Sort-Object -Property Name)
+$BackupJobs = @(Get-VBRJob)
 $BackedUpVMs = @()
 $needsExclusionHash = @{}
 foreach ($_j in $BackupJobs) {
@@ -49,7 +49,7 @@ foreach ($_j in $BackupJobs) {
 if ($needsExclusionHash.Count -gt 0) {
 	$body = "The following VMs require disk exclusions to be set for them.`r`n"
 	
-	foreach ($_j in $needsExclusionHash.keys) {
+	foreach ($_j in $needsExclusionHash.keys | Sort-Object) {
 		$body += "${_j}`r`n"
 		foreach ($_vm in $needsExclusionHash.Get_Item($_j)) {
 			$body += "`t${_vm}`r`n"
