@@ -46,6 +46,16 @@ function AddVMToJob
 	}
 }
 
+function CopyTemplate {
+	param ($JobPrefix)
+	process {
+		$tmplName = $JobPrefix + ' - TMPL'
+		$tmpl = Get-VBRJob -Name $tmplName
+		$job = Copy-VBRJob -job $tmpl
+		return $job
+	}
+}
+
 function GetExclusions
 {
 	param ($fileName)
