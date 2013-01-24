@@ -60,14 +60,15 @@ function GetExclusions
 {
 	param ($fileName)
 	process {
-		$fileContent = Get-Content $fileName
+		$fileContent = Get-Content $fileName -ErrorAction SilentlyContinue
 		$exclusionsList = @()
-		foreach ($_l in $fileContent) {
-			if (! $_l.startsWith($COMMENT)) {
-				$exclusionsList += $_l
+		if ($fileContent) {
+			foreach ($_l in $fileContent) {
+				if (! $_l.startsWith($COMMENT)) {
+					$exclusionsList += $_l
+				}
 			}
 		}
-		
 		return $exclusionsList
 	}
 }
