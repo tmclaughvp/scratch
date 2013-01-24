@@ -116,3 +116,5 @@ foreach ($_vmName in $vmHash.keys) {
 Write-Host ("Total size: {0}B" -f $totalSize)
 $totalSizeInGB = $totalSize/1GB
 Write-Host ("Total size: {0}GB" -f $totalSizeInGB)
+
+Disconnect-VIServer -Server $vcenter -Confirm:$false

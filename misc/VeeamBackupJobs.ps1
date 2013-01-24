@@ -162,4 +162,4 @@ if ($MailMsg) {
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
 }
 
-Disconnect-VIServer -Server $VCenter
+Disconnect-VIServer -Server $VCenter -Confirm:$false
