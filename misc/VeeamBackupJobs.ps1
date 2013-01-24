@@ -81,8 +81,7 @@ $dc = Get-Datacenter -Name $Datacenter
 # Get list of all VM names currently being backed up.
 # Always return an array.  You're a stupid language PowerShell...
 $JobGlob = $JobPrefix + ' - [0-9]*'
-$BackupJobs = @(Get-VBRJob -name $JobGlob)
-$BackupJobs = $BackupJobs | Sort-Object -Property Name
+$BackupJobs = @(Get-VBRJob -name $JobGlob | Sort-Object -Property Name)
 $BackedUpVMs = @()
 foreach ($_j in $BackupJobs) {
 	$objs = $_j.GetObjectsInJob()
