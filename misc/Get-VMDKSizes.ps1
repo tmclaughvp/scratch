@@ -68,6 +68,8 @@ $vMS = @()
 $vMS = Get-VM -Location $datacenter -name $glob
 $datastoreIds = @()
 
+$vmCapacity = 0
+$vmFree = 0
 $vmHash = @{}
 foreach ($_vm in $vMS) {
 	
@@ -85,12 +87,15 @@ foreach ($_vm in $vMS) {
 			
 			Write-Host ("`t`t{0}" -f $disk.Backing.FileName)
 			$diskHash.Add($disk.UnitNumber, $disk.Backing.FileName)
+			$vmCapacity += $Disk.CapacityInKB
 		}
 		$controllerHash.Add($sCSIController.BusNumber, $diskHash)
 	}
 	
 	$vmHash.Add($_vm.Name, $controllerHash)
 }
+
+Write-Host ("Capacity (thick) size: {0}KB" -f $vmCapacity)
 
 $dsHier = @{}
 Write-Host "Querying datastores (this will take a while):"
@@ -116,5 +121,7 @@ foreach ($_vmName in $vmHash.keys) {
 Write-Host ("Total size: {0}B" -f $totalSize)
 $totalSizeInGB = $totalSize/1GB
 Write-Host ("Total size: {0}GB" -f $totalSizeInGB)
+$totalSizeInTB = $totalSize/1TB
+Write-Host ("Total size: {0}TB" -f $totalSizeInTB)
 
 Disconnect-VIServer -Server $vcenter -Confirm:$false
