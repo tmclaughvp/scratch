@@ -10,7 +10,7 @@ param (
 	$Datacenter = 'lexington',
 	$VpEnv = 'dev',
 	$HostGlob = 'dev*101',
-	$JobPrefix = 'DEV Monthly',
+	$JobPrefix = 'LEX DEV Monthly',
 	[int]$JobMaxVMs = 100,
 	$ExclusionFile = 'C:\Program Files\Veeam\backup-exclusions.txt'
 )
