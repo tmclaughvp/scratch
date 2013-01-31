@@ -8,7 +8,8 @@ param (
 	$vcenter = 'vcenter101.vistaprint.net',
 	$datacenter = 'lexington',
 	$glob = 'dev*101',
-	$device = '0:0'
+	$device = '0:0',
+	[Switch] $prod = $false
 )
 
 ### Includes ###
@@ -18,6 +19,7 @@ Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
 ### Variables ###
 [int]$busNum, [int]$devNum = $device.split(':')
 $SCSILABEL = 'SCSI Controller'
+$envPrefixes = @('dev', 'tst', 'lod', 'ppd')
 
 ### Functions ###
 function Get-VMDKFilesByDS {
@@ -66,6 +68,29 @@ $vc = Connect-VIServer -Server $vcenter
 # Get list of VMs and file sizes
 $vMS = @()
 $vMS = Get-VM -Location $datacenter -name $glob
+
+if ($prod) {
+	Write-Host "Production VMs only."
+	$prodVMs = @()
+	
+	foreach ($_vm in $vMS) {
+		$nonProd = $false
+		$name = $_vm.Name.toLower()
+		foreach ($_e in $envPrefixes) {
+			if ($name.startsWith($_e)){
+				$nonProd = $true
+				break
+			}
+		}
+		if (!$nonProd) {
+			$prodVMs += $_vm
+		}
+	}
+	$vMS = $prodVMs
+}
+Write-Host $vMS
+
+
 $datastoreIds = @()
 
 $vmCapacity = 0
