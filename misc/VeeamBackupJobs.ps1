@@ -12,7 +12,8 @@ param (
 	$HostGlob = 'dev*101',
 	$JobPrefix = 'LEX DEV Monthly',
 	[int]$JobMaxVMs = 100,
-	$ExclusionFile = 'C:\Program Files\Veeam\backup-exclusions.txt'
+	$ExclusionFile = 'C:\Program Files\Veeam\backup-exclusions.txt',
+	[Switch] $prod = $false
 )
 
 ### Includes ###
@@ -24,6 +25,7 @@ $COMMENT = '#'
 $mailRelay = 'relay.vistaprint.net'
 $mailFrom = 'noreply@vistaprint.net'
 $mailTo = 'tmclaughlin@vistaprint.net'
+$envPrefixes = @('dev', 'tst', 'lod', 'ppd')
 
 # Lowercase our Datacentername
 $Datacenter = $Datacenter.ToLower()
@@ -92,6 +94,28 @@ foreach ($_j in $BackupJobs) {
 }
 
 $vms = Get-VM -Name $HostGlob -Location $dc
+# Handle prod BMs only.
+if ($prod) {
+	Write-Host "Production VMs only."
+	$prodVMs = @()
+	
+	foreach ($_vm in $vMS) {
+		$nonProd = $false
+		$name = $_vm.Name.toLower()
+		foreach ($_e in $envPrefixes) {
+			if ($name.startsWith($_e)){
+				$nonProd = $true
+				break
+			}
+		}
+		if (!$nonProd) {
+			$prodVMs += $_vm
+		}
+	}
+	$vMS = $prodVMs
+}
+
+# Exclusions
 $exclusionsList = GetExclusions $ExclusionFile
 $VMsToAdd = @()
 foreach ($_vm in $vms) {
