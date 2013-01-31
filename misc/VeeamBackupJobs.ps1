@@ -3,14 +3,14 @@
 #
 # Tom McLaughlin <tmclaughlin@vistaprint.net>, 1/16/2013
 #
-# AddVmToBackup -VCenter <hostname> -Datacenter <string> -VPEnv <name> -HostGlob <string> -JobPrefix <string> -JobMaxVMs <int>
+# AddVmToBackup -VCenter <hostname> -Datacenter <string> -VPEnv <name> -HostGlob <string> -Job <string> -JobMaxVMs <int>
 
 param (
 	$VCenter = 'vcenter101.vistaprint.net',
 	$Datacenter = 'lexington',
 	$VpEnv = 'dev',
 	$HostGlob = 'dev*101',
-	$JobPrefix = 'LEX DEV Monthly',
+	$Job = 'LEX DEV',
 	[int]$JobMaxVMs = 100,
 	$ExclusionFile = 'C:\Program Files\Veeam\backup-exclusions.txt',
 	[Switch] $prod = $false
@@ -83,8 +83,7 @@ $dc = Get-Datacenter -Name $Datacenter
 
 # Get list of all VM names currently being backed up.
 # Always return an array.  You're a stupid language PowerShell...
-$JobGlob = $JobPrefix + ' - [0-9]*'
-$BackupJobs = @(Get-VBRJob -name $JobGlob | Sort-Object -Property Name)
+$BackupJobs = @(Get-VBRJob -name $Job | Sort-Object -Property Name)
 $BackedUpVMs = @()
 foreach ($_j in $BackupJobs) {
 	$objs = $_j.GetObjectsInJob()
