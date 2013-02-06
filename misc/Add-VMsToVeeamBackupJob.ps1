@@ -1,9 +1,14 @@
 ﻿#
-#
-#
 # Tom McLaughlin <tmclaughlin@vistaprint.net>, 1/16/2013
 #
 # AddVmToBackup -VCenter <hostname> -Datacenter <string> -VPEnv <name> -HostGlob <string> -Job <string> -JobMaxVMs <int>
+#
+# TODO:
+# - Delete remnants of job sizing
+# - eventlog handling
+#   - Useful for determing qwhy script crashed or hung when run as scheduled task.
+#
+#
 
 param (
 	$VCenter = 'vcenter101.vistaprint.net',
@@ -181,9 +186,7 @@ $VmsAddedList
 "@
 
 	$MailMsg += $VMsFailedMsg
-}
 
-if ($MailMsg) {
 	$mailMsg
 	
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
