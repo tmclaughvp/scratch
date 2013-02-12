@@ -184,11 +184,10 @@ if ($VmsFailedList) {
 The following VMs have been added to a scheduled backup:
 $VmsAddedList
 "@
-
 	$MailMsg += $VMsFailedMsg
+}
 
-	$mailMsg
-	
+if ($MailMsg) {
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
 }
 
