@@ -40,9 +40,7 @@ foreach ($_job in $jobs) {
 	foreach ($_jo in $jobObjs) {
 		if ($vMNameList -notcontains $_jo.Name) {
 			$removedVms += $_jo.Name
-			# This cmdlet doesn't actually remove the VM, it just excludes it. You'll
-			# have to do some work Tom.  *womp* *womp*
-			#$o = Remove-VBRJobObject -Job $_job -Objects ($_jo)
+			$_jo.Delete()
 		}
 	}
 }
