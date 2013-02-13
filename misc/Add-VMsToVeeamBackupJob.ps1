@@ -161,7 +161,6 @@ foreach ($_vmToAdd in $VMsToAdd) {
 $MailMsg = ""
 $VmsAddedList = @()
 foreach ($_vmAdded in $VMsAdded) {
-	write-Host $_vmAdded
 	$VmsAddedList += "$($_vmAdded.Name)`r`n"
 }
 
