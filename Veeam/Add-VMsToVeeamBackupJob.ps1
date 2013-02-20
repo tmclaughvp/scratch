@@ -161,7 +161,6 @@ foreach ($_vmToAdd in $VMsToAdd) {
 $MailMsg = ""
 $VmsAddedList = @()
 foreach ($_vmAdded in $VMsAdded) {
-	write-Host $_vmAdded
 	$VmsAddedList += "$($_vmAdded.Name)`r`n"
 }
 
@@ -187,7 +186,7 @@ $VmsAddedList
 	$MailMsg += $VMsFailedMsg
 }
 
-if ($MailMsg) {
+if ($VmsAddedList -or $VmsFailedList) {
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
 }
 
