@@ -81,14 +81,35 @@ function GetExclusions
 }
 
 ### Main ###
+
+## Debug
+$d = Get-Date -Format o
+$LogfileName = "${job}.log"
+$LogFile = New-Item -Force -Path "${env:userprofile}\${LogFileName}" -Type file
+
+$d | Out-file -Append $LogFile.FullName
+
+echo "### Connect to vcenter $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $vc = Connect-VIServer -Server $VCenter
+echo "### Get Datacenter $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $dc = Get-Datacenter -Name $Datacenter
+
+# Sometimes the request times out.  Bail if it does.
+if (!$dc) {
+	$MailMsg = "FAILED TO GET DATACENTER! - $(get-Date -format o)"
+	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam FAILURE: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
+	exit
+}
+
 # Debug to make this run quicker.
 #$dc = Get-VMHost -Name 'vpesx101.vistaprint.net'
 
 # Get list of all VM names currently being backed up.
 # Always return an array.  You're a stupid language PowerShell...
+echo "### Get Veeam B&R Job $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $BackupJobs = @(Get-VBRJob -name $Job | Sort-Object -Property Name)
+
+echo "### Get backed up VMs $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $BackedUpVMs = @()
 foreach ($_j in $BackupJobs) {
 	$objs = $_j.GetObjectsInJob()
@@ -96,8 +117,12 @@ foreach ($_j in $BackupJobs) {
 		$BackedUpVMs += $_o.Name
 	}
 }
+echo "$BackedUpVMs" | Out-file -Append $LogFile.FullName
 
+echo "### Get VMs $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $vms = Get-VM -Name $HostGlob -Location $dc
+echo "$vms" | Out-file -Append $LogFile.FullName
+
 # Handle prod BMs only.
 if ($prod) {
 	Write-Host "Production VMs only."
@@ -127,12 +152,15 @@ foreach ($_vm in $vms) {
 		$VMsToAdd += $_vm
 	}
 }
+echo "### VMsToAdd $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
+echo "$VMsToAdd" | Out-file -Append $LogFile.FullName
 
 $job = $BackupJobs[-1]
 foreach ($_vmToAdd in $VMsToAdd) {
 	# If $job.length is greater than max, create a new job!
 	#if ($job.length -ge $JobMaxVMs) {	
 	#}
+	echo "Adding: $_vmToAdd" | Out-file -Append $LogFile.FullName
 	$jobObjs = AddVMToJob -Job $job -Vm $_vmToAdd
 	#$jobObj = get-VBRJobObjects -job $ $job -name $_vmToAdd
 }
@@ -149,6 +177,7 @@ foreach ($_j in $jobObjs) {
 
 $VMsAdded = @()
 $VMsFailedToAdd = @()
+
 foreach ($_vmToAdd in $VMsToAdd) {
 	if ($jobObjNames -notcontains $_vmToAdd.Name) {
 		$VMsFailedToAdd += $_vmToAdd
@@ -157,15 +186,19 @@ foreach ($_vmToAdd in $VMsToAdd) {
 	}
 }
 
+echo  "### VMsAdded $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
+echo "$VMsAdded" | Out-file -Append $LogFile.FullName
+echo "### VMsFailedToAdd $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
+echo "$VMsFailedToAdd" | Out-file -Append $LogFile.FullName
+
 # Create email message.
 $MailMsg = ""
 $VmsAddedList = @()
 foreach ($_vmAdded in $VMsAdded) {
-	write-Host $_vmAdded
 	$VmsAddedList += "$($_vmAdded.Name)`r`n"
 }
 
-if ($VmsAddedList) {
+if ($VMsAdded) {
 	$VMsAddedMsg = @"
 The following VMs have been added to a scheduled backup:
 $VmsAddedList
@@ -179,15 +212,15 @@ foreach ($_vmFailedtoAdd in $VMsFailedToAdd) {
 	$VmsFailedList += "$($_vmFailedtoAdd.Name)`r`n"
 }
 
-if ($VmsFailedList) {
+if ($VMsFailedToAdd) {
 	$VMsFailedMsg = @"
 The following VMs have been added to a scheduled backup:
-$VmsAddedList
+$VmsFailedList
 "@
 	$MailMsg += $VMsFailedMsg
 }
 
-if ($MailMsg) {
+if ($VmsAddedList -or $VmsFailedList) {
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
 }
 
