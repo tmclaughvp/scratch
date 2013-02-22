@@ -1,4 +1,6 @@
 # Report-VeeamNeedsDiskExclusion
+#
+# Report-VeeamNeedsDiskExclusion.ps1 -MailTo <string> -ExclusionFile 'C:\Program Files\Veeam\disk-report-exclusions.txt'
 
 param ($MailTo = 'tmclaughlin@vistaprint.net',
 		$ExclusionFile = 'C:\Program Files\Veeam\disk-report-exclusions.txt')
