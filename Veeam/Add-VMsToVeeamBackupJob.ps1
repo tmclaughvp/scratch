@@ -39,11 +39,6 @@ $envPrefixes = @('dev', 'tst', 'lod', 'ppd')
 # Lowercase our Datacentername
 $Datacenter = $Datacenter.ToLower()
 
-$DCBackUpRepo = @{'lexington' = 'dd101';
-				  'bermuda' = 'dd01'}
-$DCProxyServer = @{'lexington' = 'This server';
-				   'bermuda' = 'veeamproxy01.vistaprint.net'}
-
 ### Functions ###
 
 function AddVMToJob
