@@ -1,7 +1,7 @@
 ﻿#
 # Tom McLaughlin <tmclaughlin@vistaprint.net>, 1/16/2013
 #
-# AddVmToBackup -VCenter <hostname> -Datacenter <string> -VPEnv <name> -HostGlob <string> -Job <string> -JobMaxVMs <int>
+# AddVmToBackup -VCenter <hostname> -Datacenter <string> -VPEnv <name> -HostGlob <string> -Job <string> [-prod]
 #
 # TODO:
 # - Delete remnants of job sizing
