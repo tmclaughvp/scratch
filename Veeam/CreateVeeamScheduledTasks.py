@@ -2,37 +2,38 @@
 #
 #
 
+# ('DC', 'environment', 'cmd', 'time')
 JOBS = [
-    ("BDA", "DEV", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'BDA DEV'"),
-    ("BDA", "TST", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'BDA TST'"),
-    ("BDA", "LOD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'BDA LOD'"),
-    ("BDA", "PPD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'BDA PPD'"),
-    ("BDA", "PRD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'BDA PRD' -prod"),
-    ("BHI", "DEV", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'BHI DEV'"),
-    ("BHI", "TST", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'BHI TST'"),
-    ("BHI", "LOD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'BHI LOD'"),
-    ("BHI", "PPD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'BHI PPD'"),
-    ("BHI", "PRD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv prd -hostglob '*01' -job 'BHI PRD' -prod"),
-    ('DPK', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'DPK DEV'"),
-    ('DPK', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'DPK TST'"),
-    ('DPK', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'DPK LOD'"),
-    ('DPK', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'DPK PPD'"),
-    ('DPK', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv prd -hostglob '*01' -job 'DPK PRD' -prod"),
-    ('VEN', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'VEN DEV'"),
-    ('VEN', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'VEN TST'"),
-    ('VEN', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'VEN LOD'"),
-    ('VEN', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'VEN PPD'"),
-    ('VEN', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv prd -hostglob '*01' -job 'VEN PRD' -prod"),
-    ('WND', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'WND DEV'"),
-    ('WND', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'WND TST'"),
-    ('WND', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'WND LOD'"),
-    ('WND', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'WND PPD'"),
-    ('WND', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'WND PRD' -prod"),
-    ('LEX', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'LEX DEV'"),
-    ('LEX', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'LEX TST'"),
-    ('LEX', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'LEX LOD'"),
-    ('LEX', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'LEX PPD'"),
-    ('LEX', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'LEX PRD' -prod")
+    ("BDA", "DEV", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'BDA DEV'", '23:45:00'),
+    ("BDA", "TST", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'BDA TST'", '23:45:00'),
+    ("BDA", "LOD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'BDA LOD'", '23:45:00'),
+    ("BDA", "PPD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'BDA PPD'", '23:45:00'),
+    ("BDA", "PRD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bermuda -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'BDA PRD' -prod", '23:45:00'),
+    ("BHI", "DEV", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'BHI DEV'", '23:45:00'),
+    ("BHI", "TST", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'BHI TST'", '23:46:00'),
+    ("BHI", "LOD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'BHI LOD'", '23:47:00'),
+    ("BHI", "PPD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'BHI PPD'", '23:48:00'),
+    ("BHI", "PRD", "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Bhiwandi -Vcenter vcenter701.vistaprint.net -vpenv prd -hostglob '*01' -job 'BHI PRD' -prod", '23:49:00'),
+    ('DPK', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'DPK DEV'", '23:45:00'),
+    ('DPK', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'DPK TST'", '23:45:00'),
+    ('DPK', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'DPK LOD'", '23:45:00'),
+    ('DPK', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'DPK PPD'", '23:45:00'),
+    ('DPK', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter 'Deer Park' -Vcenter vcenter801.vistaprint.net -vpenv prd -hostglob '*01' -job 'DPK PRD' -prod", '23:45:00'),
+    ('VEN', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'VEN DEV'", '23:45:00'),
+    ('VEN', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'VEN TST'", '23:45:00'),
+    ('VEN', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'VEN LOD'", '23:45:00'),
+    ('VEN', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'VEN PPD'", '23:45:00'),
+    ('VEN', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Venlo -Vcenter vcenter301.vistaprint.net -vpenv prd -hostglob '*01' -job 'VEN PRD' -prod", '23:45:00'),
+    ('WND', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'WND DEV'", '23:49:00'),
+    ('WND', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'WND TST'", '23:49:00'),
+    ('WND', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'WND LOD'", '23:49:00'),
+    ('WND', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'WND PPD'", '23:49:00'),
+    ('WND', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Windsor -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'WND PRD' -prod", '23:49:00'),
+    ('LEX', 'DEV', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv dev -hostglob 'dev*01' -job 'LEX DEV'", '23:47:00'),
+    ('LEX', 'TST', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv tst -hostglob 'tst*01' -job 'LEX TST'", '23:47:00'),
+    ('LEX', 'LOD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv lod -hostglob 'lod*01' -job 'LEX LOD'", '23:47:00'),
+    ('LEX', 'PPD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv ppd -hostglob 'ppd*01' -job 'LEX PPD'", '23:47:00'),
+    ('LEX', 'PRD', "&amp;'C:\Program Files\Veeam\Add-VMsToVeeamBackupJob.ps1' -Datacenter Lexington -Vcenter vcenter101.vistaprint.net -vpenv prd -hostglob '*01' -job 'LEX PRD' -prod", '23:47:00')
 ]
 
 JOB_TMPL='''<?xml version="1.0" encoding="UTF-16"?>
@@ -43,7 +44,7 @@ JOB_TMPL='''<?xml version="1.0" encoding="UTF-16"?>
   </RegistrationInfo>
   <Triggers>
     <CalendarTrigger>
-      <StartBoundary>2013-01-31T23:45:00</StartBoundary>
+      <StartBoundary>%sT%s</StartBoundary>
       <Enabled>true</Enabled>
       <ScheduleByDay>
         <DaysInterval>1</DaysInterval>
@@ -87,6 +88,6 @@ JOB_TMPL='''<?xml version="1.0" encoding="UTF-16"?>
 
 for job in JOBS:
     f = open('C:\\Users\\tmclaughlin\\Desktop\\VeeamTasks\\Veeam %s %s Add.xml' % (job[0], job[1]), 'w')
-    f.write(JOB_TMPL % job[2])
+    f.write(JOB_TMPL % (time.strftime('%Y-%m-%d'), job[3], job[2]))
     f.close()
     
