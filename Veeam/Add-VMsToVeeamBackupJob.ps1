@@ -7,7 +7,11 @@
 # - Delete remnants of job sizing
 # - eventlog handling
 #   - Useful for determing qwhy script crashed or hung when run as scheduled task.
-#
+#	- May not be possible due to the scheduled task running at a user level which
+#	  cannot create event logs. 
+# - Script does not gracefull handle database servers in different environments.
+#	DB's start with 'db' in their name and are therefore always considered prod
+#	hosts by this script.
 #
 
 param (
