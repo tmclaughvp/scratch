@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 import BaseHTTPServer
+import SocketServer
 
 server_host = 'localhost'
 server_port = 80
+
+class ThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
+    pass
 
 class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_HEAD(s):
@@ -22,8 +26,7 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.wfile.write("</body></html>")
 
 if __name__ == '__main__':
-    server_class = BaseHTTPServer.HTTPServer
-    httpd = server_class((server_host, server_port), MyHandler)
+    httpd = ThreadedHTTPServer((server_host, server_port), MyHandler)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
