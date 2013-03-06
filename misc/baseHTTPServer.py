@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 import BaseHTTPServer
 import SocketServer
+import argparse
 
-server_host = 'localhost'
-server_port = 80
+SERVER_HOST = ''
+SERVER_PORT = 80
 
 class ThreadedHTTPServer(SocketServer.ThreadingMixIn, BaseHTTPServer.HTTPServer):
     pass
@@ -26,7 +27,19 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         s.wfile.write("</body></html>")
 
 if __name__ == '__main__':
-    httpd = ThreadedHTTPServer((server_host, server_port), MyHandler)
+    parser = argparse.ArgumentParser(description='Tiny HTTP server.')
+    parser.add_argument('-a', action='store', dest='address', default=SERVER_HOST, help='Address to bind to.')
+    parser.add_argument('-p', action='store', dest='port', type=int, default=SERVER_PORT, help='Port to listen on.')
+    args = parser.parse_args()
+    
+    if args.address == '':
+        print_addr = 'any'
+    else:
+        print_addr = args.address
+    
+    print('Starting HTTP server on: %s:%s' % (print_addr, args.port))
+    
+    httpd = ThreadedHTTPServer((args.address, args.port), MyHandler)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
