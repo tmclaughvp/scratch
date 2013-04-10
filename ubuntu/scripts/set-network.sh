@@ -45,8 +45,8 @@ iface eth0 inet static
         address $ip
         netmask $netmask
         gateway $gateway
-        dns-nameservers $dns
-        dns-search $dns_search
+        #dns-nameservers $dns
+        #dns-search $dns_search
 EOF
 
 # Restart networking
