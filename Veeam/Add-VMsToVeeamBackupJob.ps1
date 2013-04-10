@@ -33,7 +33,7 @@ Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
 $COMMENT = '#'
 $mailRelay = 'relay.vistaprint.net'
 $mailFrom = 'noreply@vistaprint.net'
-$mailTo = 'tmclaughlin@vistaprint.net'
+$mailTo = 'veeamadmins@vistaprint.net'
 $envPrefixes = @('dev', 'tst', 'lod', 'ppd')
 
 # Lowercase our Datacentername

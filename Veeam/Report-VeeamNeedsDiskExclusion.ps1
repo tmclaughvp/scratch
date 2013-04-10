@@ -2,7 +2,7 @@
 #
 # Report-VeeamNeedsDiskExclusion.ps1 -MailTo <string> -ExclusionFile 'C:\Program Files\Veeam\disk-report-exclusions.txt'
 
-param ($MailTo = 'tmclaughlin@vistaprint.net',
+param ($MailTo = 'veeamadmins@vistaprint.net',
 		$ExclusionFile = 'C:\Program Files\Veeam\disk-report-exclusions.txt')
 
 Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
