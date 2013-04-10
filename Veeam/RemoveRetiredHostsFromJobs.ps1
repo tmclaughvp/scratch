@@ -7,7 +7,7 @@ Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
 ### Variables ###
 $vCenterList = @('vcenter101.vistaprint.net', 'vcenter301.vistaprint.net', 'vcenter701.vistaprint.net', 'vcenter801.vistaprint.net')
 $mailFrom = 'noreply@vistaprint.com'
-$mailTo = 'veeamadminsn@vistaprint.com'
+$mailTo = 'veeamadmins@vistaprint.com'
 $mailRelay = 'relay.vistaprint.net'
 
 ### Functions ###
