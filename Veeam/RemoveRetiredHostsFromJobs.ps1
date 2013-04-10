@@ -1,4 +1,3 @@
-﻿
 
 ### Includes ###
 Add-PSSnapin "VMware.VimAutomation.Core" -ErrorAction SilentlyContinue
