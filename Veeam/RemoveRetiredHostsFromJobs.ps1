@@ -38,9 +38,11 @@ $jobs = @(get-VBRJob)
 foreach ($_job in $jobs) {
 	$jobObjs = get-vbrJobObject -Job $_job
 	foreach ($_jo in $jobObjs) {
-		if ($vMNameList -notcontains $_jo.Name) {
-			$removedVms += $_jo.Name
-			$_jo.Delete()
+		if ($_jo) {
+			if ($vMNameList -notcontains $_jo.Name) {
+				$removedVms += $_jo.Name
+				$_jo.Delete()
+			}
 		}
 	}
 }
