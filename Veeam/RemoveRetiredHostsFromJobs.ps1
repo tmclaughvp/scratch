@@ -53,5 +53,5 @@ if ($removedVms.Count -gt 0) {
 		$body += "${_vm}`r`n"
 	}
 	
-	Send-MailMessage -to $mailTo -from $mailFrom -SmtpServer $mailRelay -Subject "Veeam: Hosts removed." -Body $body
+	Send-MailMessage -to $mailTo -from $mailFrom -SmtpServer $mailRelay -Subject "Veeam: VMs removed." -Body $body
 }

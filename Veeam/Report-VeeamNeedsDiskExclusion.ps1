@@ -61,5 +61,5 @@ if ($needsExclusionHash.Count -gt 0) {
 	}
 
 	Write-Host $body
-	Send-MailMessage -to $mailTo -from $mailFrom -SmtpServer $mailRelay -Subject "Veeam: Hosts requiring disk exclusion." -Body $body
+	Send-MailMessage -to $mailTo -from $mailFrom -SmtpServer $mailRelay -Subject "Veeam: VMs requiring disk exclusion." -Body $body
 }
