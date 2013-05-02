@@ -91,7 +91,7 @@ $d | Out-file -Append $LogFile.FullName
 
 ### Keep track of new VMs each month
 $TrackingFileDate = Get-Date -Format "yyyy-MMMM"
-$TrackingFile = "C:\Program Files\Veeam\${TrackingFileDate} New VMs.txt"
+$TrackingFile = "C:\Program Files\Veeam\New VMs $Job $TrackingFileDate.txt"
 
 
 echo "### Connect to vcenter $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
