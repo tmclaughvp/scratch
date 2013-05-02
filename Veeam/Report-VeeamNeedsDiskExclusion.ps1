@@ -10,6 +10,7 @@ Add-PSSnapin "VeeamPSSnapIn" -ErrorAction SilentlyContinue
 $mailRelay = 'relay.vistaprint.net'
 $mailFrom = 'noreply@vistaprint.net'
 $DISK0 = '2000' # Veeam numbers disks in its filter from 2000-2063.
+$COMMENT = '#'
 
 function Get-Exclusions
 {
