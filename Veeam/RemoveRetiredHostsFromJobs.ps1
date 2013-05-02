@@ -8,8 +8,29 @@ $vCenterList = @('vcenter101.vistaprint.net', 'vcenter301.vistaprint.net', 'vcen
 $mailFrom = 'noreply@vistaprint.com'
 $mailTo = 'veeamadmins@vistaprint.com'
 $mailRelay = 'relay.vistaprint.net'
+$COMMENT = '#'
+$exclusionFile = 'C:\Program Files\Veeam\remove-vm-exclusions.txt'
 
 ### Functions ###
+function Get-Exclusions
+{
+	param ($fileName)
+	process {
+		$fileContent = Get-Content $fileName -ErrorAction SilentlyContinue
+		$exclusionsList = @()
+		if ($fileContent) {
+			
+			foreach ($_l in $fileContent) {
+				if (! $_l.startsWith($COMMENT)) {
+					$exclusionsList += $_l
+				}
+			}
+		}
+		return $exclusionsList
+	}
+}
+
+
 function getJobDC {
 	param ($jobName)
 	
@@ -31,6 +52,9 @@ foreach ($_vc in $vCenterList) {
 	Disconnect-VIServer -Server $_vc -Confirm:$false
 }
 
+# Get list of exclusions
+$exclusionsList = Get-Exclusions $ExclusionFile
+
 ## Loop through jobs and remove
 $removedVms = @()
 $jobs = @(get-VBRJob)
@@ -38,7 +62,7 @@ foreach ($_job in $jobs) {
 	$jobObjs = get-vbrJobObject -Job $_job
 	foreach ($_jo in $jobObjs) {
 		if ($_jo) {
-			if ($vMNameList -notcontains $_jo.Name) {
+			if ($vMNameList -notcontains $_jo.Name -and $exclusionsList -notcontains $_jo.Name) {
 				$removedVms += $_jo.Name
 				$_jo.Delete()
 			}
