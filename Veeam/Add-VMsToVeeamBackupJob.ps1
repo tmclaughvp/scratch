@@ -88,6 +88,12 @@ $LogFile = New-Item -Force -Path "${env:userprofile}\${LogFileName}" -Type file
 
 $d | Out-file -Append $LogFile.FullName
 
+
+### Keep track of new VMs each month
+$TrackingFileDate = Get-Date -Format "yyyy-MMMM"
+$TrackingFile = "C:\Program Files\Veeam\${TrackingFileDate} New VMs.txt"
+
+
 echo "### Connect to vcenter $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
 $vc = Connect-VIServer -Server $VCenter
 echo "### Get Datacenter $(get-Date -format o) ###" | Out-file -Append $LogFile.FullName
@@ -221,6 +227,7 @@ $VmsFailedList
 
 if ($VmsAddedList -or $VmsFailedList) {
 	Send-MailMessage -to $mailTo -from $mailFrom -subject "Veeam: new $($VpEnv) VMs added in $($Datacenter)" -SmtpServer $mailRelay -Body $MailMsg
+	$VmsAddedList >> $TrackingFile
 }
 
 Disconnect-VIServer -Server $VCenter -Confirm:$false
