@@ -219,7 +219,7 @@ foreach ($_vmFailedtoAdd in $VMsFailedToAdd) {
 
 if ($VMsFailedToAdd) {
 	$VMsFailedMsg = @"
-The following VMs have been added to a scheduled backup:
+The following VMs failed to be added to a scheduled backup:
 $VmsFailedList
 "@
 	$MailMsg += $VMsFailedMsg
